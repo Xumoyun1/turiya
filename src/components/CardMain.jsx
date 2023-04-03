@@ -159,10 +159,10 @@ const CardMain = () => {
               <div className="c_desc_text">
                 <div className="c_desc_h">Цвет:</div>
                 {data.colors && data.colors.map((item, index) => {
-                  return(
-                  <div key={index} className="c_desc_p">{item}</div>
+                  return (
+                    <div key={index} className="c_desc_p">{item}</div>
                   )
-                })}  
+                })}
               </div>
               <div className="c_desc_text">
                 <div className="c_desc_h">Страна производителя:</div>

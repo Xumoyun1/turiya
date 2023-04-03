@@ -20,11 +20,11 @@ export const test = () => async (dispatch) => {
 export const REGISTER = (phone, password, nav) => async (dispatch) => {
   try {
     await axios
-      .post(API_PATH + "/user/register/", { phone, password })
+      .post(API_PATH + "user/register/", { phone, password })
       .then((res) => {
         console.log(res);
         dispatch(updateAuth({ isVerify: true }));
-        nav("/verify", { replace: true });
+        nav("/verify/", { replace: true });
       })
       .catch((err) => {
         console.log(err);
@@ -38,11 +38,11 @@ export const REGISTERVERIFY =
   (phone, code, password, nav) => async (dispatch) => {
     try {
       await axios
-        .post(API_PATH + "/user/verify-register/", { phone, code, password })
+        .post(API_PATH + "user/verify-register/", { phone, code, password })
         .then((res) => {
           console.log(res);
           dispatch(updateAuth({ isVerify: false, isLogin: true }));
-          nav("/login", { replace: true });
+          nav("/login/", { replace: true });
         })
         .catch((err) => {
           console.log(err);
@@ -55,16 +55,16 @@ export const REGISTERVERIFY =
 export const LOGIN = (phone, password, nav) => async (dispatch) => {
   try {
     await axios
-      .post(API_PATH + "/user/login/", { phone, password })
+      .post(API_PATH + "user/login/", { phone, password })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         localStorage.setItem(USER_TOKEN, res.data.token);
-        nav("/profile", { replace: true });
+        nav("/profile/", { replace: true });
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   } catch (err) {
-    console.log(err);
+    // console.log(err);
   }
 };

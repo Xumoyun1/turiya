@@ -14,6 +14,17 @@ const Header = () => {
     const [sub, setSub] = useState([])
     const [catName, setCatName] = useState('1')
 
+    const [sub2, setSub2] = useState('')
+
+    const getSub2 = (id) => {
+        axios.get(API_PATH + `product/category/${id}/`)
+            .then((res => {
+                setSub2(res.data)
+            }))
+    }
+
+
+
     const getCatalog = () => {
         axios.get(API_PATH + 'product/category/')
             .then((res => {
@@ -21,21 +32,23 @@ const Header = () => {
                 // console.log(res.data);
             }))
     }
+
+
     const test = () => {
         setBurger(!burger)
-        axios.get(API_PATH + `product/subcategory/?cat=1`)
+        axios.get(API_PATH + `product/ayjwdyawd/1/`)
             .then((res => {
-                console.log(res.data);
+                // console.log(res.data);
                 setSub(res.data)
                 // console.log(res.data);
             }))
     }
 
     const getSubcategory = (id) => {
-        axios.get(API_PATH + `product/subcategory/?cat=${id}`)
+        axios.get(API_PATH + `product/category/${id}/`)
             .then((res => {
-                console.log(id);
-                console.log(res.data);
+                // console.log(id);
+                // console.log(res.data);
                 setSub(res.data)
                 setCatName(id)
                 // console.log(res.data);
@@ -122,7 +135,7 @@ const Header = () => {
                                                 >
                                                     <div onClick={() => getSubcategory(item.id)} className="header_2_box mt-2">
                                                         <div className="d-flex">
-                                                            <img src="/img/h_2_1.png" alt="" className="header_2_img" />
+                                                            <img src={item.get_icon} alt="" className="header_2_img" />
                                                             <div className="header_2_h">{item.name}</div>
                                                         </div>
                                                         <img src='' alt="" className="header_2_arrow" />
@@ -139,7 +152,6 @@ const Header = () => {
                             <div className="col-lg-8 col-5">
                                 <TabContent activeTab={activeTab}>
                                     <TabPane tabId={catName ? catName : '1'} className=''>
-
                                         {/* {sub} */}
                                         <div className="row">
                                             <div className="col-12">

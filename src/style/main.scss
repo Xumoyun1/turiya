@@ -1333,6 +1333,14 @@ html {
                             justify-content: center;
                             transition: 0.4s;
 
+                            &.active {
+                                background: #02897A;
+
+                                .main_like_h {
+                                    color: white !important;
+                                }
+                            }
+
 
                             .main_like_h {
                                 margin-left: 10px;

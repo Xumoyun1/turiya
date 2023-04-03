@@ -47,7 +47,7 @@ const Favorite = () => {
                                 </div>
                                 <div className="col-md-3">
                                     <div className="fav_img_box">
-                                        <img src={product.product_image[0].image} alt="" className="fav_img" />
+                                        <img src={product.get_image} alt="" className="fav_img" />
                                     </div>
                                 </div>
                                 <div className="col-md-3 d-flex align-items-center">

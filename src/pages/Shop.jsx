@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom'
 import Header from '../components/Header'
 import back1 from '../images/head_img.png'
 import { API_PATH } from '../tools/constats'
+import { Rating } from 'react-simple-star-rating'
+
 
 const Shop = () => {
     const [like, setLike] = useState()
@@ -11,6 +13,10 @@ const Shop = () => {
     const [brand, setBrand] = useState([])
     const [color, setColor] = useState([])
     const [camp, setCamp] = useState([])
+    const [rating, setRating] = useState(0)
+    const handleRating = (rate) => {
+        setRating(rate)
+    }
 
     const getCamp = () => {
         axios.get(API_PATH + 'order/slider/')
@@ -67,15 +73,15 @@ const Shop = () => {
                             {camp && camp.slice(0, 1).map((item, index) => {
                                 return (
                                     <div key={index} className="shop_box" style={{ backgroundImage: `url(${item.get_image})` }}>
-                                    <div className="shop_text">
-                                        <div className="shop_text_2">
-                                            <div className="shop_name">{item.name}</div>
-                                            <div className="shop_h">{item.title}</div>
+                                        <div className="shop_text">
+                                            <div className="shop_text_2">
+                                                <div className="shop_name">{item.name}</div>
+                                                <div className="shop_h">{item.title}</div>
+                                            </div>
+                                            <button className='shop_btn'><a href='/' className="shop_a">Получение льготного товара</a></button>
                                         </div>
-                                        <button className='shop_btn'><a href='/' className="shop_a">Получение льготного товара</a></button>
                                     </div>
-                                </div>
-                            )
+                                )
                             })}
                         </div>
                         <div className="col-12 ">
@@ -94,7 +100,7 @@ const Shop = () => {
                                                             <div key={index} className="shop_filtr_box">
                                                                 <div className="shop_filtr_left">
                                                                     <input type="radio" name="brand" id="2" className="shop_chek" />
-                                             
+
                                                                     <div className="shop_filtr_h">{item.name}</div></div>
                                                                 <div className="shop_filtr_right">
                                                                     <div className="shop_filtr_p">{item.products_count}</div>
@@ -152,12 +158,10 @@ const Shop = () => {
 
                                                                         <div className="main_price">
                                                                             <div className="main_left">
-                                                                                <img src="/img/star_1.png" alt="" className="main_star" />
-                                                                                <img src="/img/star_1.png" alt="" className="main_star" />
-                                                                                <img src="/img/star_2.png" alt="" className="main_star" />
-                                                                                <img src="/img/star_2.png" alt="" className="main_star" />
-                                                                                <img src="/img/star_2.png" alt="" className="main_star" />
-                                                                                <div className="main_star_h">{item.get_rating}</div>
+                                                                                <Rating className='main_left_star'
+                                                                                    initialValue={item.get_rating} />
+                                                                                <div className="main_star_h">{item.get_rating}
+                                                                                </div>
                                                                             </div>
                                                                             <div className="main_right">
                                                                                 <div onClick={() => setLike(!like)} className={`main_like_box ${like ? 'active' : ''}`}>

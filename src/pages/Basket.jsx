@@ -46,7 +46,7 @@ const Basket = () => {
                                                 <img src="/img/basket.png" alt="" className="bas_bas_img" />
                                             </div>
                                             <div className="bas_prod">
-                                                <img src={product.product_image[0].image} alt="" className="bas_prod_img" />
+                                                <img src={product.images[0].get_image} alt="" className="bas_prod_img" />
                                             </div>
                                             <div className="bas_descr">
                                                 {product.name}
@@ -68,28 +68,32 @@ const Basket = () => {
                         </div>
                         <div className="col-3 d-lg-block d-none">
                             <div className="bas_box_2">
-                                <div className="bas_2_top">
-                                    <div className="bas_2_text">
-                                        <div className="bas_2_h">Итого (1 шт.)</div>
-                                        <div className="bas_2_p">{total_amount}</div>
-                                    </div>
-                                    <div className="bas_2_text">
-                                        <div className="bas_2_h">Перевозки</div>
-                                        <div className="bas_2_p">100 000 сум</div>
-                                    </div>
-                                    <div className="bas_2_text">
-                                        <div className="bas_2_h">Скидка</div>
-                                        <div className="bas_2_p">10 000 сум</div>
-                                    </div>
-                                    <div className="bas_2_text">
-                                        <div className="bas_2_h">Налог</div>
-                                        <div className="bas_2_p">300 000 сум</div>
-                                    </div>
-                                    <div className="bas_2_sale">
-                                        <div className="bas_2_h_2">Общая сумма</div>
-                                        <div className="bas_2_p_2">{total_amount}</div>
-                                    </div>
-                                </div>
+                                {items.map((product) => {
+                                    return (
+                                        <div className="bas_2_top">
+                                            <div className="bas_2_text">
+                                                <div className="bas_2_h">Итого {product.quantity} шт</div>
+                                                <div className="bas_2_p">{total_amount} сум</div>
+                                            </div>
+                                            <div className="bas_2_text">
+                                                <div className="bas_2_h">Перевозки</div>
+                                                <div className="bas_2_p">{product.price_delivery ? `${product.price_delivery}` : '0'} сум</div>
+                                            </div>
+                                            {/* <div className="bas_2_text">
+                                                <div className="bas_2_h">Скидка</div>
+                                                <div className="bas_2_p">{product.new_price ? `${product.price - product.new_price}` : '0'} сум</div>
+                                            </div> */}
+                                            {/* <div className="bas_2_text">
+                                                <div className="bas_2_h">Налог</div>
+                                                <div className="bas_2_p">300 000 сум</div>
+                                            </div> */}
+                                            <div className="bas_2_sale">
+                                                <div className="bas_2_h_2">Общая сумма</div>
+                                                <div className="bas_2_p_2">{`${total_amount + product.price_delivery}`} сум</div>
+                                            </div>
+                                        </div>
+                                    )
+                                })}
                                 <button onClick={redirect} className="bas_2_a"><a href="">Перейти к покупке</a></button>
                             </div>
                         </div>

@@ -17,7 +17,8 @@ const Registration = () => {
     const [password, setPassword] = useState('')
     const [password2, setPassword2] = useState('')
     const [code, setCode] = useState('')
-    const nav = useNavigate()
+    const nav = useNavigate();
+
     // const navigate = useNavigate()
     //     const Register = () => {
     //         axios.post(API_PATH + 'user/register/', { phone, password })

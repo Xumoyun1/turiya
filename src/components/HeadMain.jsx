@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, useRef} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { addToWishlist, WishlistDispatchContext } from '../contexts/wishlist'
 import { API_PATH } from '../tools/constats'
@@ -11,13 +11,15 @@ const HeadMain = () => {
     const [like, setLike] = useState()
     const [back, setBack] = useState([])
     const [prod, setProd] = useState([])
-
-    const [rating, setRating] = useState(0)
+    const [change, setChange] = useState(false);
+    const [rating, setRating] = useState(0);
+    const saveBtns = useRef([]); 
 
     // Catch Rating value
     const handleRating = (rate) => {
         setRating(rate)
     }
+
 
     const getBack = () => {
         axios.get(API_PATH + 'order/slider/')
@@ -31,19 +33,35 @@ const HeadMain = () => {
             }))
     }
 
+
     useEffect(() => {
         getBack()
     }, []);
+
     const navigate = useNavigate()
+    
+    // const saveBtns = document.querySelectorAll('.main_like_h'); 
+
+    // console.log(saveBtns[0]); 
+
     const detail = (id) => {
         localStorage.setItem("PRODUCT_ID", JSON.stringify(id))
         navigate('/card')
     }
-    const handleAddToWishlist = (item) => {
+
+    const handleAddToWishlist = (item, index) => {
+         
+        saveBtns.current[index].style.background = "green";
+        // document.getElementById(index).setAttribute('style', 'background:#000') 
+
         const product = { ...item, quantity: 1 };
-        addToWishlist(dispatch, product);
+        addToWishlist(dispatch, product); 
+
+
         setTimeout(() => {
         }, 3500);
+        setChange(true)
+
 
     };
 
@@ -101,7 +119,7 @@ const HeadMain = () => {
                                                         </div>
 
                                                         <div className="main_sale">
-                                                            {item.price}
+                                                            {item.price} sum
                                                         </div>
 
                                                         <div className="main_price">
@@ -112,9 +130,9 @@ const HeadMain = () => {
                                                                 </div>
                                                             </div>
                                                             <div className="main_right">
-                                                                <div onClick={() => setLike(!like)} className={`main_like_box ${like ? 'active' : ''} `}>
+                                                                <div className='main_like_box'>
                                                                     <img src="/img/like.png" alt="" className="main_like" />
-                                                                    <div onClick={() => handleAddToWishlist(item)} className="main_like_h">Сохранить</div>
+                                                                    <div data-index={item.id} ref={(element) => saveBtns.current.push(element)} onClick={() => handleAddToWishlist(item, index)} className='main_like_h'>Сохранить</div>
                                                                 </div>
                                                             </div>
                                                         </div>
