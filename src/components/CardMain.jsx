@@ -11,6 +11,7 @@ import axios from 'axios';
 import { API_PATH } from '../tools/constats';
 import { addToCart, CartDispatchContext } from '../contexts/cart';
 
+
 const CardMain = () => {
   const [id, setId] = useState(JSON.parse(localStorage.getItem('PRODUCT_ID') || 1))
   const [data, setData] = useState('')
@@ -105,7 +106,7 @@ const CardMain = () => {
                   <div className="c_main_info">
                     <div className="c_main_info_img"><img className="c_main_info_icon" src="/img/c_main_1.png" alt="" /></div>
                     <div className="c_main_info_name">Доставка:</div>
-                    <div className="c_main_info_p">{data.price_delivery ? `Есть, бесплатно` : `${data.price_delivery} UZS`}</div>
+                    <div className="c_main_info_p">{data.price_delivery ? `${data.price_delivery} UZS` : `Есть, бесплатно`}</div>
                   </div>
                   <div className="c_main_info">
                     <div className="c_main_info_img"><img className="c_main_info_icon" src="/img/c_main_2.png" alt="" /></div>
@@ -126,12 +127,12 @@ const CardMain = () => {
                     <div className="c_main_info_a_img"><img className="c_main_info_a_icon" src="/img/c_main_5.png" alt="" /></div>
                     <div className="c_main_info_a_name">Ознакомиться c правилами возврата</div>
                   </a>
-                  <div className="c_main_count_name">Выберите количество</div>
+                  {/* <div className="c_main_count_name">Выберите количество</div>
                   <div className="c_main_count">
                     <div className="c_main_count_minus"></div>
                     <div className="c_main_count_h">123</div>
-                    <div className="c_main_count_plus"></div>
-                  </div>
+                    <div  className="c_main_count_plus"></div>
+                  </div> */}
                 </div>
               </div>
               <div className="c_main_down">

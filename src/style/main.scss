@@ -848,6 +848,7 @@ html {
                         @media(max-width:767px) {
                             width: 100%;
                         }
+
                     }
 
                     @media(max-width:767px) {
@@ -1332,14 +1333,7 @@ html {
                             align-items: center;
                             justify-content: center;
                             transition: 0.4s;
-
-                            &.active {
-                                background: #02897A;
-
-                                .main_like_h {
-                                    color: white !important;
-                                }
-                            }
+                            color: #02897A;
 
 
                             .main_like_h {
@@ -1348,7 +1342,7 @@ html {
                                 font-size: 16px;
                                 line-height: 143%;
                                 letter-spacing: 0.018em;
-                                color: #02897A;
+                                // color: #02897A;
 
                                 @media(max-width:576px) {
                                     font-size: 14px;
@@ -3728,7 +3722,7 @@ html {
     }
 
     .nav-tabs {
-        width: 630px;
+        width: 400px;
         display: flex;
         align-items: center;
         justify-content: space-between;

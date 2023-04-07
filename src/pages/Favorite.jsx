@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Header from '../components/Header'
 import { removeFromWishlist, WishlistDispatchContext, WishlistStateContext } from '../contexts/wishlist';
 
@@ -23,9 +23,9 @@ const Favorite = () => {
                     <div className="row">
                         <div className="col-12">
                             <div className="fav_text">
-                                <a href='' className="fav_h">
+                                <Link to="/" className="fav_h">
                                     Главное /
-                                </a>
+                                </Link>
                                 Избранные товары
                             </div>
 

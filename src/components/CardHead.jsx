@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { API_PATH } from '../tools/constats'
 
 const CardHead = () => {
@@ -24,11 +24,11 @@ const CardHead = () => {
                 <div className="container">
                     <div className="row">
                         <div className="col-12 d-flex align-items-center">
-                            <a href="" className="c_h_left">
+                            <Link to="/" className="c_h_left">
                                 <img src="/img/c_h_left.png" alt="" className="c_h_l_img" />
                                 <img src="/img/c_h_left_2.png" alt="" className="c_h_l_img_2" />
                                 <div className="c_h_l_name">Главное</div>
-                            </a>
+                            </Link>
                             <img src="/img/c_h_right.png" alt="" className="c_h_img" />
                             <img src="/img/c_h_right_2.png" alt="" className="c_h_img_2" />
                             <div className="c_h_h">{name}</div>

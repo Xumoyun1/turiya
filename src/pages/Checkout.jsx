@@ -13,7 +13,11 @@ const Checkout = () => {
    
     const [clientsecret, setClientSecret]=useState('')
     const {prod_id}='1';
-    console.log(prod_id)
+    // console.log(prod_id) 
+    
+    const userId = localStorage.getItem('turiya'); 
+    console.log(userId);
+
     useEffect(()=>{
         axios.get("http://127.0.0.1:8000/api/v1/order/create-payment-intent/1/")
         .then((res) =>{
@@ -24,7 +28,8 @@ const Checkout = () => {
     
     const appearance = {
         theme: 'stripe',
-      };
+      }; 
+
       const options = {
         clientSecret:clientsecret
       };

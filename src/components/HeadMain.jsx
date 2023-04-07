@@ -1,9 +1,10 @@
 import axios from 'axios'
-import React, { useContext, useEffect, useState, useRef} from 'react'
+import React, { useContext, useEffect, useState, useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { addToWishlist, WishlistDispatchContext } from '../contexts/wishlist'
 import { API_PATH } from '../tools/constats'
 import { Rating } from 'react-simple-star-rating'
+import { getText } from '../locales'
 
 
 const HeadMain = () => {
@@ -13,7 +14,9 @@ const HeadMain = () => {
     const [prod, setProd] = useState([])
     const [change, setChange] = useState(false);
     const [rating, setRating] = useState(0);
-    const saveBtns = useRef([]); 
+    const saveBtns = useRef([]);
+    const currect = useRef([])
+    const text = useRef([])
 
     // Catch Rating value
     const handleRating = (rate) => {
@@ -39,7 +42,7 @@ const HeadMain = () => {
     }, []);
 
     const navigate = useNavigate()
-    
+
     // const saveBtns = document.querySelectorAll('.main_like_h'); 
 
     // console.log(saveBtns[0]); 
@@ -50,18 +53,19 @@ const HeadMain = () => {
     }
 
     const handleAddToWishlist = (item, index) => {
-         
-        saveBtns.current[index].style.background = "green";
+
+        saveBtns.current[index].style.background = "#02897A";
+        saveBtns.current[index].style.color = "#FFFFFF ";
+        currect.current[index].src = "/img/right.png ";
         // document.getElementById(index).setAttribute('style', 'background:#000') 
 
         const product = { ...item, quantity: 1 };
-        addToWishlist(dispatch, product); 
+        addToWishlist(dispatch, product);
 
 
         setTimeout(() => {
         }, 3500);
         setChange(true)
-
 
     };
 
@@ -129,10 +133,11 @@ const HeadMain = () => {
                                                                 <div className="main_star_h">{item.get_rating}
                                                                 </div>
                                                             </div>
+
                                                             <div className="main_right">
-                                                                <div className='main_like_box'>
-                                                                    <img src="/img/like.png" alt="" className="main_like" />
-                                                                    <div data-index={item.id} ref={(element) => saveBtns.current.push(element)} onClick={() => handleAddToWishlist(item, index)} className='main_like_h'>Сохранить</div>
+                                                                <div data-index={item.id} ref={(element) => saveBtns.current.push(element)} onClick={() => handleAddToWishlist(item, index)} className='main_like_box'>
+                                                                    <img data-index={item.id} ref={(element) => currect.current.push(element)} onClick={() => handleAddToWishlist(item, index)} src="/img/like.png" alt="" className="main_like" />
+                                                                    <div className='main_like_h'>{getText('nav_2')}</div>
                                                                 </div>
                                                             </div>
                                                         </div>

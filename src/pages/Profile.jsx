@@ -75,7 +75,7 @@ const Profile = () => {
                                             </div>
                                         </NavLink>
                                     </NavItem>
-                                    <NavItem className=''>
+                                    {/* <NavItem className=''>
                                         <NavLink id='2' className={classnames({ active: activeTab === '2', })} onClick={() => { toggle('2'); }}
                                         >
                                             <div className="prof_nav_box">
@@ -83,7 +83,7 @@ const Profile = () => {
                                                 <div className="prof_nav_box_name">Мои карты</div>
                                             </div>
                                         </NavLink>
-                                    </NavItem>
+                                    </NavItem> */}
                                     <NavItem className=''>
                                         <NavLink id='3' className={classnames({ active: activeTab === '3', })} onClick={() => { toggle('3'); }}
                                         >
@@ -255,7 +255,7 @@ const Profile = () => {
                                     </Link>
 
                                 </TabPane>
-                                <TabPane tabId="2" className=''>
+                                {/* <TabPane tabId="2" className=''>
                                     <div className="row">
                                         <div className="col-12 d-flex justify-content-center">
                                             <div className="tab_card">
@@ -282,7 +282,7 @@ const Profile = () => {
                                         </div>
 
                                     </div>
-                                </TabPane>
+                                </TabPane> */}
                                 <TabPane tabId="3" className=''>
                                     <div className="row justify-content-center">
                                         <div className="col-md-6 d-flex flex-column align-items-center">
