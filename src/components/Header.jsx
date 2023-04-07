@@ -289,11 +289,15 @@ const Header = () => {
                                         )
                                     })}
 
-                                 {subCategory && subCategory.map(item => {
+                                        <AccordionBody accordionId={1}> 
 
-                                    return(
-                                        <AccordionBody key={item.id} accordionId={itemId}>
-                                        <UncontrolledAccordion> 
+                                         <Link to="/shop" className="head_3_accor_box_2">
+                                                <div className="head_3_accor_box_2_h">
+                                                    dsada
+                                                </div>
+                                         </Link>
+
+                                        {/* <UncontrolledAccordion>  */}
    
                                             {/* <AccordionItem className='acc_item'>
                                                 <AccordionHeader targetId={item.id}>
@@ -325,47 +329,37 @@ const Header = () => {
                                                     </Link>
                                                  </AccordionBody>  
 
-                                            </AccordionItem>   */} 
-
-                                            <AccordionItem className='acc_item'>
-                                                <AccordionHeader targetId={item.id}>
-                                                    <div className="head_3_accor">
-                                                        <div className="head_3_accor_text">
-                                                            <div className="head_3_accor_name">{item.name}</div>
+                                            </AccordionItem>   */}    
+                                            
+                                            {/* {subCategory && subCategory.map((item) => {
+                                                return(
+                                                    <AccordionItem className='acc_item'>
+                                                    <AccordionHeader targetId={item.id}>
+                                                        <div className="head_3_accor">
+                                                            <div className="head_3_accor_text">
+                                                                <div className="head_3_accor_name">{item.name}</div>
+                                                            </div>
+                                                            <img src="/img/h_3_arrow.png" alt="" className="head_3_accor_arrow" />
                                                         </div>
-                                                        <img src="/img/h_3_arrow.png" alt="" className="head_3_accor_arrow" />
-                                                    </div>
-                                                </AccordionHeader>
-                                                
-                                               {/* {subCategory.three_subcategories && subCategory.three_subcategories.map((nested_item) => {
-                                                    return(
-                                                 <AccordionBody key={nested_item.id} accordionId={1}>
-                                                    <Link to="/shop" className="head_3_accor_box_2">
-                                                        <div className="head_3_accor_box_2_h">
-                                                            {nested_item.name}
-                                                        </div>
-                                                    </Link>
-                                                 </AccordionBody> 
-                                                    )
-                                                })}  */}
+                                                    </AccordionHeader>
+    
+    
+                                                     <AccordionBody  accordionId={1}>
+                                                        <Link to="/shop" className="head_3_accor_box_2">
+                                                            <div className="head_3_accor_box_2_h">
+                                                                dsada
+                                                            </div>
+                                                        </Link>
+                                                     </AccordionBody>  
+    
+                                                </AccordionItem>  
+                                                )
+                                            })} */}
 
-
-                                                 <AccordionBody  accordionId={1}>
-                                                    <Link to="/shop" className="head_3_accor_box_2">
-                                                        <div className="head_3_accor_box_2_h">
-                                                            dsada
-                                                        </div>
-                                                    </Link>
-                                                 </AccordionBody>  
-
-                                            </AccordionItem>  
 
    
-                                        </UncontrolledAccordion>
+                                        {/* </UncontrolledAccordion> */}
                                     </AccordionBody> 
-
-
-                                    )})}
 
 
                                 </AccordionItem>
