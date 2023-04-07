@@ -5,16 +5,21 @@ import { removeFromWishlist, WishlistDispatchContext, WishlistStateContext } fro
 
 const Favorite = () => {
     const { items, isWishlistOpen } = useContext(WishlistStateContext);
-    const dispatch = useContext(WishlistDispatchContext);
+    const dispatch = useContext(WishlistDispatchContext); 
+    
     console.log(items);
+
     const handleRemove = (productId) => {
         return removeFromWishlist(dispatch, productId);
-    };
+    }; 
+
     const navigate = useNavigate()
+    
     const detail = (id) => {
         localStorage.setItem("PRODUCT_ID", JSON.stringify(id))
         navigate('/card')
-    }
+    } 
+
     return (
         <>
             <Header />

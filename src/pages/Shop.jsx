@@ -1,19 +1,42 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Header from '../components/Header'
 import back1 from '../images/head_img.png'
 import { API_PATH } from '../tools/constats'
 import { Rating } from 'react-simple-star-rating'
+import { getText } from '../locales'
+import { addToWishlist, WishlistDispatchContext } from '../contexts/wishlist'
 
 
 const Shop = () => {
+    const dispatch = useContext(WishlistDispatchContext);
     const [like, setLike] = useState()
     const [products, setProducts] = useState([])
     const [brand, setBrand] = useState([])
     const [color, setColor] = useState([])
     const [camp, setCamp] = useState([])
     const [rating, setRating] = useState(0)
+    const saveBtns = useRef([]);
+    const currect = useRef([])
+
+
+    const handleAddToWishlist = (item, index) => {
+
+        saveBtns.current[index].style.background = "#02897A";
+        saveBtns.current[index].style.color = "#FFFFFF ";
+        currect.current[index].src = "/img/right.png ";
+        // document.getElementById(index).setAttribute('style', 'background:#000') 
+
+        const product = { ...item, quantity: 1 };
+        addToWishlist(dispatch, product);
+
+        setTimeout(() => {
+        }, 3500);
+
+    };
+
+
     const handleRating = (rate) => {
         setRating(rate)
     }
@@ -138,22 +161,26 @@ const Shop = () => {
                                         <div className="row">
                                             <div className="col-12">
                                                 <div className="row">
+
+
                                                     {products && products.map((item, index) => {
                                                         return (
                                                             <div key={index} className="col-4 mb-4 deal_main">
                                                                 <div className="main_main">
                                                                     <div onClick={() => detail(item.id)} className="main_box_img">
                                                                         <img src={item.get_image} alt="" className="main_img" />
-                                                                    </div>
-                                                                    <div className="main_text">
                                                                         <div className="main_h">
                                                                             {item.name}
                                                                         </div>
+                                                                    </div>
+                                                                    <div className="main_text">
+
+
+                                                                        <div className="main_p">
+                                                                            {item.description}
+                                                                        </div>
                                                                         <div className="main_sale">
                                                                             {item.price} сум
-                                                                        </div>
-                                                                        <div className="main_p">
-                                                                            {item.description.slice(0, 100)}
                                                                         </div>
 
                                                                         <div className="main_price">
@@ -164,9 +191,9 @@ const Shop = () => {
                                                                                 </div>
                                                                             </div>
                                                                             <div className="main_right">
-                                                                                <div onClick={() => setLike(!like)} className={`main_like_box ${like ? 'active' : ''}`}>
-                                                                                    <img src="/img/like.png" alt="" className="main_like" />
-                                                                                    <div className="main_like_h">Сохранить</div>
+                                                                                <div data-index={item.id} ref={(element) => saveBtns.current.push(element)} onClick={() => handleAddToWishlist(item, index)} className='main_like_box'>
+                                                                                    <img data-index={item.id} ref={(element) => currect.current.push(element)} onClick={() => handleAddToWishlist(item, index)} src="/img/like.png" alt="" className="main_like" />
+                                                                                    <div className='main_like_h'>{getText('nav_2')}</div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -175,6 +202,9 @@ const Shop = () => {
                                                             </div>
                                                         )
                                                     })}
+
+
+
                                                 </div>
                                             </div>
                                         </div>

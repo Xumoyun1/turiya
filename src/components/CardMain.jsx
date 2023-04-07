@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/css";
@@ -10,6 +10,9 @@ import { FreeMode, Navigation, Thumbs } from "swiper";
 import axios from 'axios';
 import { API_PATH } from '../tools/constats';
 import { addToCart, CartDispatchContext } from '../contexts/cart';
+import { Rating } from 'react-simple-star-rating'
+import { getText } from '../locales';
+import { addToWishlist, WishlistDispatchContext } from '../contexts/wishlist'
 
 
 const CardMain = () => {
@@ -20,6 +23,16 @@ const CardMain = () => {
   const [category, setCategory] = useState(JSON.parse(localStorage.getItem('CATEGORY_ID')) || '')
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const dispatch = useContext(CartDispatchContext);
+  const [rating, setRating] = useState(0);
+  const saveBtns = useRef([]);
+  const currect = useRef([])
+  const [change, setChange] = useState(false);
+
+
+
+  const handleRating = (rate) => {
+    setRating(rate)
+  }
 
   const getProduct = () => {
     axios.get(API_PATH + `product/${id}/`)
@@ -36,11 +49,29 @@ const CardMain = () => {
   useEffect(() => {
     getProduct();
   }, [])
+
   const handleAddToCart = () => {
     const product = { ...data, quantity: 1 };
     addToCart(dispatch, product);
     setTimeout(() => {
     }, 3500);
+  };
+
+  const handleAddToWishlist = (item, index) => {
+
+    saveBtns.current[index].style.background = "#02897A";
+    saveBtns.current[index].style.color = "#FFFFFF ";
+    currect.current[index].src = "/img/right.png ";
+    // document.getElementById(index).setAttribute('style', 'background:#000') 
+
+    const product = { ...item, quantity: 1 };
+    addToWishlist(dispatch, product);
+
+
+    setTimeout(() => {
+    }, 3500);
+    setChange(true)
+
   };
 
 
@@ -177,7 +208,15 @@ const CardMain = () => {
           </div>
         </div>
       </div>
-      <div className="CardRecom">
+
+
+
+
+
+
+
+
+      {/* <div className="CardRecom">
         <div className="container">
           <div className="row">
             <div className="col-12">
@@ -187,36 +226,43 @@ const CardMain = () => {
             </div>
           </div>
           <div className="row">
+
+
             {data2 && data2.map((item, index) => {
               return (
                 <div key={index} className="col-lg-3 col-6 mb-sm-4 mb-3 main_col">
                   <div className="main_main">
                     <div className="main_box_img">
                       <img src={item.get_image} alt="" className="main_img" />
-                    </div>
-                    <div className="main_text">
                       <div className="main_h">
                         {item.name}
                       </div>
-                      <div className="main_sale">
-                        {item.price}
-                      </div>
+                    </div>
+                    <div className="main_text">
                       <div className="main_p">
                         {item.description}
                       </div>
+
+
+                      <div className="main_sale">
+                        {item.price}
+                      </div>
+
                       <div className="main_price">
                         <div className="main_left">
-                          <img src="/img/star_1.png" alt="" className="main_star" />
-                          <img src="/img/star_1.png" alt="" className="main_star" />
-                          <img src="/img/star_2.png" alt="" className="main_star" />
-                          <div className="main_star_h">{item.get_rating}</div>
-                        </div>
-                        <div className="main_right">
-                          <div onClick={() => setLike(!like)} className={`main_like_box ${like ? 'active' : ''}`}>
-                            <img src="/img/like.png" alt="" className="main_like" />
-                            <div className="main_like_h">Сохранить</div>
+                          <Rating className='main_left_star'
+                            initialValue={item.get_rating} />
+                          <div className="main_star_h">{item.get_rating}
                           </div>
                         </div>
+
+                        <div className="main_right">
+                          <div data-index={item.id} ref={(element) => saveBtns.current.push(element)} onClick={() => handleAddToWishlist(item, index)} className='main_like_box'>
+                            <img data-index={item.id} ref={(element) => currect.current.push(element)} onClick={() => handleAddToWishlist(item, index)} src="/img/like.png" alt="" className="main_like" />
+                            <div className='main_like_h'>{getText('nav_2')}</div>
+                          </div>
+                        </div> 
+
                       </div>
                     </div>
                   </div>
@@ -224,9 +270,11 @@ const CardMain = () => {
               )
             })}
 
+
+
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   )
 }

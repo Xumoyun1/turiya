@@ -1,44 +1,46 @@
 import React, { useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import Header from '../components/Header'
-import { addToCart, CartDispatchContext, CartStateContext, minusToCart, removeFromCart } from '../contexts/cart'; 
-import {API_PATH} from "../tools/constats";
+import { addToCart, CartDispatchContext, CartStateContext, minusToCart, removeFromCart } from '../contexts/cart';
+import { API_PATH } from "../tools/constats";
 import axios from "axios";
 
 const Basket = () => {
     const { items, isCartOpen } = useContext(CartStateContext);
     const dispatch = useContext(CartDispatchContext);
     // console.log(items);
-    
+
     const handleRemove = (productId) => {
         return removeFromCart(dispatch, productId);
-    }; 
+    };
 
     let total_amount = 0
     function calc() {
         items.map((item) => {
             total_amount += item.quantity * item.price
         })
-    } 
+    }
 
-    calc(); 
+    calc();
 
     const nav = useNavigate()
 
-    const redirect = () => { 
+    const redirect = () => {
 
         const userId = localStorage.getItem('turiya');
-        console.log(API_PATH); 
-        
-        axios.post(`${API_PATH}user/checkout/`, {}, {headers: {
-            Authorization : `Token ${userId}`, 
-        }}).then((res) => { 
+        console.log(API_PATH);
 
-            switch(res.status) {
+        axios.post(`${API_PATH}user/checkout/`, {}, {
+            headers: {
+                Authorization: `Token ${userId}`,
+            }
+        }).then((res) => {
+
+            switch (res.status) {
                 case 200: nav('/checkout'); break;
-                case 404: nav('/login'); break; 
-                default: alert("something went wrong"); 
-            } 
+                case 404: nav('/login'); break;
+                default: alert("something went wrong");
+            }
 
         })
         // nav('/checkout')
@@ -119,32 +121,7 @@ const Basket = () => {
                             </div>
                         </div>
 
-                        {items.map((product) => {
-                            return (
-                                <div className="bas_box">
-                                    <div className="bas_left">
-                                        <div onClick={() => handleRemove(product.id)} className="bas_bas">
-                                            <img src="/img/basket.png" alt="" className="bas_bas_img" />
-                                        </div>
-                                        <div className="bas_prod">
-                                            <img src={product.images[0].get_image} alt="" className="bas_prod_img" />
-                                        </div>
-                                        <div className="bas_descr">
-                                            {product.name}
-                                        </div>
-                                        <div className="bas_sale">
-                                            {product.quantity * product.price} sum
-                                        </div>
-                                    </div>
-                                    <div className="bas_line"></div>
-                                    <div className="bas_cal">
-                                        <div onClick={() => addToCart(dispatch, product)} className="cal_plus">+</div>
-                                        <div className="cal_num">{product.quantity}</div>
-                                        <div onClick={() => minusToCart(dispatch, product)} className="cal_minus">-</div>
-                                    </div>
-                                </div>
-                            )
-                        })}
+                     
 
                         {items.map((product) => {
                             return (

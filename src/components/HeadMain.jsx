@@ -111,10 +111,7 @@ const HeadMain = () => {
                                                 <div className="main_main">
                                                     <div onClick={() => detail(item.id)} className="main_box_img">
                                                         <img src={item.get_image} alt="" className="main_img" />
-                                                        <div className="main_text">
-                                                            <div className="main_h">{item.name}
-                                                            </div>
-
+                                                        <div className="main_h">{item.name}
                                                         </div>
                                                     </div>
                                                     <div className="main_text">
@@ -151,7 +148,7 @@ const HeadMain = () => {
                         </div>
 
                         <div className="col-12 d-flex justify-content-center">
-                            <Link to="" className="main_a">
+                            <Link to="/shop" className="main_a">
                                 Показать еще
                             </Link>
                         </div>

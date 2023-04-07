@@ -8,9 +8,12 @@ import { API_PATH } from "../tools/constats";
 import { useEffect } from "react";
 import axios from "axios";
 
+import { Link, useNavigate } from "react-router-dom";
+
 const Deal = () => {
     const [like, setLike] = useState()
     const [deal, setDeal] = useState()
+    const navigate = useNavigate()
 
     const getDeal = () => {
         axios.get(API_PATH + 'order/campaign/')
@@ -20,6 +23,9 @@ const Deal = () => {
 
     }
 
+    const getNavigate = () => {
+        navigate("/shop")
+    }
 
     useEffect(() => {
         getDeal()
@@ -38,7 +44,7 @@ const Deal = () => {
                         {deal && deal.map((item, index) => {
                             return (
                                 <div key={index} className="col-lg-4 col-sm-6 mb-4">
-                                    <div className="deal_box">
+                                    <div onClick={() => getNavigate()} className="deal_box">
                                         <img src={item.get_image} alt="" className="deal_img" />
                                         <div className="deal_text">
                                             <div className="deal_h">{item.name}</div>
@@ -214,11 +220,11 @@ const Deal = () => {
                             {deal && deal.map((item, index) => {
                                 return (
                                     <SwiperSlide key={index}>
-                                        <div className="deal_box">
+                                        <div onClick={() => getNavigate()} className="deal_box">
                                             <img src={item.get_image} alt="" className="deal_img" />
                                             <div className="deal_text">
                                                 <div className="deal_h">{item.name}</div>
-                                                <div className="deal_p">{item.title}</div>
+                                                {/* <div className="deal_p">{item.title}</div> */}
                                             </div>
                                         </div>
                                     </SwiperSlide>
