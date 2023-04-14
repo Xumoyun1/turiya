@@ -5,6 +5,7 @@ import classnames from 'classnames';
 import Header from '../components/Header';
 import { API_PATH } from '../tools/constats';
 import axios from 'axios';
+import { useEffect } from 'react';
 
 const Profile = () => {
     const [password, setPassword] = useState('')
@@ -13,6 +14,7 @@ const Profile = () => {
     const [password2, setPassword2] = useState('')
     const [activeTab, setActiveTab] = useState('1');
     const [token, setToken] = useState(localStorage.getItem('turiya'))
+    const [order, setOrder] = useState([])
 
     // old password new password repetation of new password -> success 
 
@@ -21,23 +23,46 @@ const Profile = () => {
     }
     // api = user/change-password 
     // Basic OTk4OTA4MTA2NzYzOlBhc3NAMTIz
+    const formdata = new FormData();
+    formdata.append('old_password', old_password)
+    formdata.append('password', password)
+    formdata.append('conf_password', password2)
+
+
     const changePassword = (e) => {
         e.preventDefault();
         // console.log(token)
-        axios.patch(API_PATH + 'user/change-password/', { old_password, password, conf_password: password2 }, {
+        axios.patch(API_PATH + 'user/change-password/', formdata, {
             headers: {
                 'Authorization': `Token ${token}`,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
             }
         }).then((res) => {
             console.log(res.data);
-            // document.location.reload()
+            document.location.reload()
         }).catch((err) => {
             console.log(err);
         })
 
     }
+
+    const getOrders = () => {
+        axios.get(API_PATH + 'order/list/', {
+            headers: {
+                'Authorization': `Token ${token}`,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+            .then((res) => {
+                setOrder(res.data)
+                console.log("   order", res.data);
+            })
+    }
+
+    useEffect(() => {
+        getOrders();
+        console.log();
+    }, [])
 
     return (
         <>
@@ -136,70 +161,54 @@ const Profile = () => {
                                             </div>
                                         </div>
                                         <div className="tab_text">
-                                            <div className="row tab_text_row">
-                                                <div className="col-1">
-                                                    <div className="tab_text_name">
-                                                        1
+                                            {order && order.map((item, index) => {
+                                                return (
+                                                    <div key={index} className="row tab_text_row">
+                                                        <div className="col-1">
+                                                            <div className="tab_text_name">
+                                                                {item.id}
+                                                            </div>
+                                                        </div>
+                                                        <div className="col-3">
+                                                            <div className="tab_text_name">
+                                                                {item.card_items && item.card_items.map((item2, index2) => {
+                                                                    return (
+                                                                        <div key={index2} className="div">
+                                                                            {item2.product_name}
+                                                                        </div>
+                                                                    )
+                                                                })}
+                                                            </div>
+                                                        </div>
+                                                        <div className="col-2">
+                                                            <div className="tab_text_name">
+                                                                {item.card_items && item.card_items.map((item2, index2) => {
+                                                                    return (
+                                                                        <div key={index2} className="div">
+                                                                            {item2.quantity}
+                                                                        </div>
+                                                                    )
+                                                                })}
+                                                            </div>
+                                                        </div>
+                                                        <div className="col-2">
+                                                            <div className="tab_text_name">
+                                                                {item.created_at}
+                                                            </div>
+                                                        </div>
+                                                        <div className="col-2">
+                                                            <div className="tab_text_name_2">
+                                                                {item.status}
+                                                            </div>
+                                                        </div>
+                                                        <div className="col-2">
+                                                            <div className="tab_text_name">
+                                                                {item.get_total} сум
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div className="col-3">
-                                                    <div className="tab_text_name">
-                                                        Iphone 13 pro max 256gb
-                                                    </div>
-                                                </div>
-                                                <div className="col-2">
-                                                    <div className="tab_text_name">
-                                                        1-количество
-                                                    </div>
-                                                </div>
-                                                <div className="col-2">
-                                                    <div className="tab_text_name">
-                                                        01.11.2022
-                                                    </div>
-                                                </div>
-                                                <div className="col-2">
-                                                    <div className="tab_text_name_2">
-                                                        Неоплачено
-                                                    </div>
-                                                </div>
-                                                <div className="col-2">
-                                                    <div className="tab_text_name">
-                                                        11 248 100 сум
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="row tab_text_row">
-                                                <div className="col-1">
-                                                    <div className="tab_text_name">
-                                                        1
-                                                    </div>
-                                                </div>
-                                                <div className="col-3">
-                                                    <div className="tab_text_name">
-                                                        Iphone 13 pro max 256gb
-                                                    </div>
-                                                </div>
-                                                <div className="col-2">
-                                                    <div className="tab_text_name">
-                                                        1-количество
-                                                    </div>
-                                                </div>
-                                                <div className="col-2">
-                                                    <div className="tab_text_name">
-                                                        01.11.2022
-                                                    </div>
-                                                </div>
-                                                <div className="col-2">
-                                                    <div className="tab_text_name_2 active">
-                                                        Oплачено
-                                                    </div>
-                                                </div>
-                                                <div className="col-2">
-                                                    <div className="tab_text_name">
-                                                        11 248 100 сум
-                                                    </div>
-                                                </div>
-                                            </div>
+                                                )
+                                            })}
                                         </div>
                                     </div>
                                     <div className="tab_buy_2">

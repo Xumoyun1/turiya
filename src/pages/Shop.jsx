@@ -11,6 +11,7 @@ import { addToWishlist, WishlistDispatchContext } from '../contexts/wishlist'
 
 const Shop = () => {
     const dispatch = useContext(WishlistDispatchContext);
+    const [cat, setCat] = useState(JSON.parse(localStorage.getItem('CAT_ID') || ''))
     const [like, setLike] = useState()
     const [products, setProducts] = useState([])
     const [brand, setBrand] = useState([])
@@ -19,6 +20,8 @@ const Shop = () => {
     const [rating, setRating] = useState(0)
     const saveBtns = useRef([]);
     const currect = useRef([])
+    const [filterColors, setFilterColors] = useState('')
+    const [filterBrand, setFilterBrand] = useState('')
 
 
     const handleAddToWishlist = (item, index) => {
@@ -30,9 +33,6 @@ const Shop = () => {
 
         const product = { ...item, quantity: 1 };
         addToWishlist(dispatch, product);
-
-        setTimeout(() => {
-        }, 3500);
 
     };
 
@@ -47,6 +47,7 @@ const Shop = () => {
                 setCamp(res.data)
             }))
     }
+
     const getBrand = () => {
         axios.get(API_PATH + 'product/brands/')
             .then((res) => {
@@ -67,21 +68,33 @@ const Shop = () => {
             })
     }
 
-
     const getProducts = () => {
-        axios.get(API_PATH + 'product/')
+        axios.get(API_PATH + `product/?cat=${cat}`)
+            .then((res => {
+                setProducts(res.data)
+            }))
+
+    }
+    const navigate = useNavigate()
+
+    const getFilter = () => {
+        axios.get(API_PATH + `product/?color=${filterColors}&&brand=${filterBrand}`)
             .then((res => {
                 setProducts(res.data)
             }))
     }
-    const navigate = useNavigate()
 
     useEffect(() => {
-        getProducts();
+        if (filterColors.length > 1 || filterBrand.length > 1) {
+            getFilter()
+        }
+        if (filterColors.length < 1 && filterBrand.length < 1) {
+            getProducts();
+        }
         getBrand();
         getColors();
         getCamp();
-    }, [])
+    }, [filterColors, filterBrand])
     const detail = (id) => {
         localStorage.setItem("PRODUCT_ID", JSON.stringify(id))
         navigate('/card')
@@ -117,12 +130,12 @@ const Shop = () => {
                                                     <div className="shop_filtr_name">
                                                         По бренду
                                                     </div>
-                                                    <input placeholder='Поиск' className='shop_filtr_inp' type="text" name="" id="" />
+                                                    {/* <input placeholder='Поиск' className='shop_filtr_inp' type="text" name="" id="" /> */}
                                                     {brand && brand.map((item, index) => {
                                                         return (
                                                             <div key={index} className="shop_filtr_box">
                                                                 <div className="shop_filtr_left">
-                                                                    <input type="radio" name="brand" id="2" className="shop_chek" />
+                                                                    <input onClick={() => setFilterBrand(item.name)} type="radio" name="brand" id="2" className="shop_chek" />
 
                                                                     <div className="shop_filtr_h">{item.name}</div></div>
                                                                 <div className="shop_filtr_right">
@@ -131,7 +144,7 @@ const Shop = () => {
                                                             </div>
                                                         )
                                                     })}
-                                                    <div className="shop_filtr_clean">Очистить фильтр</div>
+                                                    <div onClick={() => setFilterBrand('')} className="shop_filtr_clean">Очистить фильтр</div>
                                                 </div>
                                             </div>
                                             <div className="col-12 mt-5">
@@ -139,12 +152,12 @@ const Shop = () => {
                                                     <div className="shop_filtr_name">
                                                         По Color
                                                     </div>
-                                                    <input placeholder='Поиск' className='shop_filtr_inp' type="text" name="" id="" />
+                                                    {/* <input placeholder='Поиск' className='shop_filtr_inp' type="text" name="" id="" /> */}
                                                     {color && color.map((item, index) => {
                                                         return (
                                                             <div key={index} className="shop_filtr_box">
                                                                 <div className="shop_filtr_left">
-                                                                    <input type="radio" name='filter' id='1' className="shop_chek" />
+                                                                    <input onClick={() => setFilterColors(item.name)} type="radio" name='filter' id='1' className="shop_chek" />
                                                                     <div className="shop_filtr_h">{item.name}</div></div>
                                                                 <div className="shop_filtr_right">
                                                                     <div className="shop_filtr_p">{item.products_count}</div>
@@ -152,7 +165,7 @@ const Shop = () => {
                                                             </div>
                                                         )
                                                     })}
-                                                    <div className="shop_filtr_clean">Очистить фильтр</div>
+                                                    <div onClick={() => setFilterColors('')} className="shop_filtr_clean">Очистить фильтр</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -167,17 +180,20 @@ const Shop = () => {
                                                         return (
                                                             <div key={index} className="col-4 mb-4 deal_main">
                                                                 <div className="main_main">
-                                                                    <div onClick={() => detail(item.id)} className="main_box_img">
-                                                                        <img src={item.get_image} alt="" className="main_img" />
+                                                                    <div>
+                                                                        <div onClick={() => detail(item.id)} className="main_box_img">
+                                                                            <img src={item.get_image} alt="" className="main_img" />
+
+                                                                        </div>
                                                                         <div className="main_h">
-                                                                            {item.name}
+                                                                            {item.name.slice(0, 100)}...
                                                                         </div>
                                                                     </div>
                                                                     <div className="main_text">
 
 
                                                                         <div className="main_p">
-                                                                            {item.description}
+                                                                            {item.description.slice(0, 100)}...
                                                                         </div>
                                                                         <div className="main_sale">
                                                                             {item.price} сум

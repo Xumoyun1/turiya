@@ -65,7 +65,7 @@ const Favorite = () => {
                                 </div>
                                 <div className="col-md-3 d-flex align-items-center">
                                     <div className="fav_sale">
-                                        {product.price}
+                                        {product.price} sum
                                     </div>
                                 </div>
                                 <div onClick={() => detail(product.id)} className="col-md-1 d-flex align-items-center  justify-content-center">

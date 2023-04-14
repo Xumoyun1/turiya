@@ -26,7 +26,7 @@ const Login = () => {
                 <div className="container">
                     <div className="row">
                         <div className="col-12 d-flex justify-content-center">
-                            <form onSubmit={login} action="">
+                            <form action="">
                                 <div className="registr_box">
                                     <div className="registr_name">
                                         Войти в систему
@@ -41,7 +41,7 @@ const Login = () => {
                                     <input onChange={e => setLoginPassword(e.target.value)} value={loginPassword} required placeholder='' type="text" name="" id="" className="registr_inp" />
 
                                     <Link to='/registration' className="register_reg">Регистрация</Link>
-                                    <button type='submit' className="register_in">Войти</button>
+                                    <button type='submit' onClick={(e) => login(e)} className="register_in">Войти</button>
                                 </div>
                             </form>
                         </div>

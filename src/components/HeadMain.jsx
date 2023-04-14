@@ -99,24 +99,26 @@ const HeadMain = () => {
                         </div>
                         <div className="col-12">
                             <div className="head_main_box">
-                                <select className='main_sel' name="" id="">
+                                {/* <select className='main_sel' name="" id="">
                                     <option value="">Обычное</option>
                                     <option value="">nmadir</option>
                                     <option value="">qanaqadir</option>
-                                </select>
+                                </select> */}
                                 <div className="row">
                                     {prod && prod.map((item, index) => {
                                         return (
                                             <div key={index} className="col-lg-3 col-6 mb-sm-4 mb-3 main_col">
                                                 <div className="main_main">
-                                                    <div onClick={() => detail(item.id)} className="main_box_img">
-                                                        <img src={item.get_image} alt="" className="main_img" />
-                                                        <div className="main_h">{item.name}
+                                                    <div>
+                                                        <div onClick={() => detail(item.id)} className="main_box_img">
+                                                            <img src={item.get_image} alt="" className="main_img" />
+                                                        </div>
+                                                        <div className="main_h">{item.name.slice(0, 80)}...
                                                         </div>
                                                     </div>
                                                     <div className="main_text">
                                                         <div className="main_p">
-                                                            {item.description}
+                                                            {item.description.slice(0, 100)}...
                                                         </div>
 
                                                         <div className="main_sale">
@@ -155,7 +157,7 @@ const HeadMain = () => {
 
                     </div>
                 </div>
-            </div>
+            </div >
         </>
     )
 }

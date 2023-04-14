@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Nav, NavItem, NavLink, Row, TabContent, TabPane } from 'reactstrap';
 import classnames from 'classnames';
-import { AccordionBody, AccordionHeader, AccordionItem, UncontrolledAccordion } from 'reactstrap'
+import { AccordionBody, AccordionHeader, AccordionItem, UncontrolledAccordion, Accordion } from 'reactstrap'
 import axios from 'axios';
 import { API_PATH } from '../tools/constats';
 import { getText } from '../locales'
@@ -16,6 +16,17 @@ const Header = () => {
     const [subCategory, setSubCategory] = useState([]);
     const [itemId, setItemId] = useState(1);
     const [product, setProduct] = useState();
+    const [open, setOpen] = useState('1');
+    const [head, setHead] = useState(false);
+    const [head2, setHead2] = useState(false);
+
+    const toggleAcc = (id) => {
+        if (open === id) {
+            setOpen();
+        } else {
+            setOpen(id);
+        }
+    }
 
     const getCatalog = () => {
         axios.get(API_PATH + 'product/category/')
@@ -24,13 +35,16 @@ const Header = () => {
                 console.log(res.data);
             }))
     }
-
+    const nav = useNavigate()
     const getProductbyCategory = (category_id) => {
         console.log(category_id);
         axios.get(API_PATH + `product/?cat=${category_id}`)
             .then((res => {
                 setProduct(res.data)
+                localStorage.setItem('CAT_ID', category_id)
                 console.log(res.data);
+                nav('/shop')
+                // document.location.reload(true)
             }))
     }
 
@@ -41,6 +55,8 @@ const Header = () => {
                 setSub(res.data)
             }))
     }
+
+
 
     useEffect(() => {
         axios.get(API_PATH + `product/category/${itemId}/`)
@@ -62,6 +78,18 @@ const Header = () => {
         if (activeTab !== tab) setActiveTab(tab);
     }
 
+    const getHead = () => {
+
+        setHead(true)
+        if (head == true) {
+            setHead(false)
+            setHead2(false);
+        }
+
+    }
+    const getHead2 = () => {
+        setHead2(!head2)
+    }
 
 
     return (
@@ -165,7 +193,6 @@ const Header = () => {
                                                 return (
                                                     <div key={item2.id} className="col-lg-3 col-md-6 mb-5">
                                                         <div className="header_2_h_2">{item2.name}</div>
-
                                                         {item2.three_subcategories && item2.three_subcategories.map((item3, index3) => {
                                                             return (
                                                                 <div onClick={() => (getProductbyCategory(item3.id))} key={index3}>
@@ -194,25 +221,84 @@ const Header = () => {
                     <div className="row">
                         <div className="col-12">
                             <Link to="/" className="head_3_a">
-                                <div className="head_3_img_box"><img src="/img/icon_house_2.png" alt="" className="head_3_img" /></div>
-                                <div className="head_3_h">{getText('header_2')}</div>
+                                <div className="head_3_left">
+                                    <div className="head_3_img_box"><img src="/img/icon_house_2.png" alt="" className="head_3_img" /></div>
+                                    <div className="head_3_h">{getText('header_2')}</div>
+                                </div>
+
                             </Link>
                             <Link to="/" className="head_3_a">
-                                <div className="head_3_img_box"><img src="/img/icon_buy_2.png" alt="" className="head_3_img" /></div>
-                                <div className="head_3_h">{getText('header_3')}</div>
+                                <div className="head_3_left">
+                                    <div className="head_3_img_box"><img src="/img/icon_buy_2.png" alt="" className="head_3_img" /></div>
+                                    <div className="head_3_h">{getText('header_3')}</div>
+                                </div>
+
                             </Link>
                             <Link to="/" className="head_3_a">
-                                <div className="head_3_img_box"><img src="/img/icon_talk_2.png" alt="" className="head_3_img" /></div>
-                                <div className="head_3_h">{getText('header_4')}</div>
+                                <div className="head_3_left">
+                                    <div className="head_3_img_box"><img src="/img/icon_talk_2.png" alt="" className="head_3_img" /></div>
+                                    <div className="head_3_h">{getText('header_4')}</div>
+                                </div>
+
                             </Link>
                             <Link to="/" className="head_3_a">
-                                <div className="head_3_img_box"><img src="/img/icon_key_2.png" alt="" className="head_3_img" /></div>
-                                <div className="head_3_h">{getText('header_5')}</div>
+                                <div className="head_3_left">
+                                    <div className="head_3_img_box"><img src="/img/icon_key_2.png" alt="" className="head_3_img" /></div>
+                                    <div className="head_3_h">{getText('header_5')}</div>
+                                </div>
+
                             </Link>
                             <Link to="/" className="head_3_a">
-                                <div className="head_3_img_box"><img src="/img/icon_bag_2.png" alt="" className="head_3_img" /></div>
-                                <div className="head_3_h">{getText('header_6')}</div>
+                                <div className="head_3_left">
+                                    <div className="head_3_img_box"><img src="/img/icon_bag_2.png" alt="" className="head_3_img" /></div>
+                                    <div className="head_3_h">{getText('header_6')}</div>
+                                </div>
+
                             </Link>
+
+
+                            {catalog && catalog.map((item, index) => {
+                                return (
+                                    <div key={index} className="head_4_a">
+                                        <div onClick={() => getHead()} className="head_4_box">
+                                            <div className="head_4_left">
+                                                <div className="head_4_img_box"><img src={item.get_icon} alt="" className="head_4_img" /></div>
+                                                <div className="head_4_h">{item.name}</div>
+                                            </div>
+                                            <img className={`head_4_a_icon ${head ? 'active' : ''}`} src="/img/down.png" alt="" />
+                                        </div>
+
+
+                                        <div onClick={() => getHead2()} className={`head_4_box_2 ${head ? 'active' : ''}`}>
+                                            <div className="head_4_left">
+                                                <div className="head_4_h">{getText('header_6')}</div>
+                                            </div>
+                                            <img className={`head_4_a_icon ${head2 ? 'active' : ''}`} src="/img/down.png" alt="" />
+                                        </div>
+
+
+                                        <div className={`head_4_box_3 ${head2 ? 'active' : ''}`}>
+                                            <div className="head_4_left">
+                                                <div className="head_4_h">{getText('header_6')}</div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                )
+                            })}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
                             {/* <UncontrolledAccordion >
@@ -271,99 +357,56 @@ const Header = () => {
                                 </AccordionItem>
                             </UncontrolledAccordion> */}
 
-                            <UncontrolledAccordion >
-                                <AccordionItem>
-                                    {catalog && catalog.map(item => {
-                                        return(
-                                            <AccordionHeader key={item.id} targetId={item.id} onClick={() => setItemId(item.id)}>
-                                            <div className="head_3_accor">
-                                                <div className="head_3_accor_text">
-                                                    <div className="head_3_accor_img">
-                                                        <img src='/img/shop.png' alt="" className="head_3_accor_image" />
-                                                    </div>
-                                                    <div className="head_3_accor_name">{item.name}</div>
-                                                </div>
-                                                <img src="/img/h_3_arrow.png" alt="" className="head_3_accor_arrow" />
-                                            </div> 
-                                        </AccordionHeader>   
-                                        )
-                                    })}
+                            {/* <Accordion open={open} toggle={toggleAcc}>
 
-                                        <AccordionBody accordionId={1}> 
-
-                                         <Link to="/shop" className="head_3_accor_box_2">
-                                                <div className="head_3_accor_box_2_h">
-                                                    dsada
-                                                </div>
-                                         </Link>
-
-                                        {/* <UncontrolledAccordion>  */}
-   
-                                            {/* <AccordionItem className='acc_item'>
-                                                <AccordionHeader targetId={item.id}>
-                                                    <div className="head_3_accor">
-                                                        <div className="head_3_accor_text">
-                                                            <div className="head_3_accor_name">{item.name}</div>
-                                                        </div>
-                                                        <img src="/img/h_3_arrow.png" alt="" className="head_3_accor_arrow" />
-                                                    </div>
-                                                </AccordionHeader>
-                                                
-                                               {subCategory.three_subcategories && subCategory.three_subcategories.map((nested_item) => {
-                                                    return(
-                                                 <AccordionBody key={nested_item.id} accordionId={1}>
-                                                    <Link to="/shop" className="head_3_accor_box_2">
-                                                        <div className="head_3_accor_box_2_h">
-                                                            {nested_item.name}
-                                                        </div>
-                                                    </Link>
-                                                 </AccordionBody> 
+                                {catalog && catalog.map((item) => {
+                                    return (
+                                        <AccordionItem>
+                                            <AccordionHeader targetId={1} onClick={() => setItemId(1)}>Accordion Item 1</AccordionHeader>
+                                            <AccordionBody accordionId={itemId}>
+                                                {subCategory && subCategory.map((nested_item) => {
+                                                    return (
+                                                        <AccordionItem>
+                                                            <AccordionHeader targetId="3">Sub Accordion Item 2</AccordionHeader>
+                                                            <AccordionBody accordionId="3">
+                                                                <strong>This is the second item&#39;s accordion body.</strong>
+                                                                You can modify any of this with custom CSS or overriding our default
+                                                                variables. It&#39;s also worth noting that just about any HTML can
+                                                                go within the <code>.accordion-body</code>, though the transition
+                                                                does limit overflow.
+                                                            </AccordionBody>
+                                                        </AccordionItem>
                                                     )
-                                                })} 
-
-                                                 <AccordionBody  accordionId={1}>
-                                                    <Link to="/shop" className="head_3_accor_box_2">
-                                                        <div className="head_3_accor_box_2_h">
-                                                            dsada
-                                                        </div>
-                                                    </Link>
-                                                 </AccordionBody>  
-
-                                            </AccordionItem>   */}    
-                                            
-                                            {/* {subCategory && subCategory.map((item) => {
-                                                return(
-                                                    <AccordionItem className='acc_item'>
-                                                    <AccordionHeader targetId={item.id}>
-                                                        <div className="head_3_accor">
-                                                            <div className="head_3_accor_text">
-                                                                <div className="head_3_accor_name">{item.name}</div>
-                                                            </div>
-                                                            <img src="/img/h_3_arrow.png" alt="" className="head_3_accor_arrow" />
-                                                        </div>
-                                                    </AccordionHeader>
-    
-    
-                                                     <AccordionBody  accordionId={1}>
-                                                        <Link to="/shop" className="head_3_accor_box_2">
-                                                            <div className="head_3_accor_box_2_h">
-                                                                dsada
-                                                            </div>
-                                                        </Link>
-                                                     </AccordionBody>  
-    
-                                                </AccordionItem>  
-                                                )
-                                            })} */}
-
-
-   
-                                        {/* </UncontrolledAccordion> */}
-                                    </AccordionBody> 
-
-
+                                                })}
+                                            </AccordionBody>
+                                        </AccordionItem>
+                                    )
+                                })}
+                                <AccordionItem>
+                                    <AccordionHeader targetId="2">Accordion Item 2</AccordionHeader>
+                                    <AccordionBody accordionId="2">
+                                        <strong>This is the second item&#39;s accordion body.</strong>
+                                        You can modify any of this with custom CSS or overriding our default
+                                        variables. It&#39;s also worth noting that just about any HTML can
+                                        go within the <code>.accordion-body</code>, though the transition
+                                        does limit overflow.
+                                    </AccordionBody>
                                 </AccordionItem>
-                            </UncontrolledAccordion>
+
+                                <AccordionItem>
+                                    <AccordionHeader targetId="3">Accordion Item 3</AccordionHeader>
+                                    <AccordionBody accordionId="3">
+                                        <strong>This is the third item&#39;s accordion body.</strong>
+                                        You can modify any of this with custom CSS or overriding our default
+                                        variables. It&#39;s also worth noting that just about any HTML can
+                                        go within the <code>.accordion-body</code>, though the transition
+                                        does limit overflow.
+                                    </AccordionBody>
+                                </AccordionItem>
+                            </Accordion> */}
+
+
+
 
 
                         </div>

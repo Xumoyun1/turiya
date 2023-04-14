@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Header from '../components/Header'
 import { addToCart, CartDispatchContext, CartStateContext, minusToCart, removeFromCart } from '../contexts/cart';
 import { API_PATH } from "../tools/constats";
@@ -28,7 +28,7 @@ const Basket = () => {
     const redirect = () => {
 
         const userId = localStorage.getItem('turiya');
-        console.log(API_PATH);
+        // console.log(API_PATH);
 
         axios.post(`${API_PATH}user/checkout/`, {}, {
             headers: {
@@ -43,7 +43,18 @@ const Basket = () => {
             }
 
         })
-        // nav('/checkout')
+        nav('/checkout')
+    }
+    // const location = useLocation()
+    const formData = new FormData()
+    formData.append('products', items)
+    const order = () => {
+        axios.post(API_PATH + 'order/stripe/', formData)
+            .then((res) => {
+                // location.assign(res)
+                window.location.replace(res.data.url)
+                console.log(res);
+            })
     }
 
     return (
@@ -117,11 +128,11 @@ const Basket = () => {
                                         </div>
                                     )
                                 })}
-                                <button onClick={redirect} className="bas_2_a"><a>Перейти к покупке</a></button>
+                                <button onClick={order} className="bas_2_a">Перейти к покупке</button>
                             </div>
                         </div>
 
-                     
+
 
                         {items.map((product) => {
                             return (

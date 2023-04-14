@@ -78,14 +78,17 @@ function Interesting() {
                                         return (
                                             <div key={index} className="col-lg-3 col-6 mb-sm-4 mb-3 main_col">
                                                 <div className="main_main">
-                                                    <div onClick={() => detail(item.id)} className="main_box_img">
-                                                        <img src={item.get_image} alt="" className="main_img" />
-                                                        <div className="main_h">{item.name}
+                                                    <div>
+                                                        <div onClick={() => detail(item.id)} className="main_box_img">
+                                                            <img src={item.get_image} alt="" className="main_img" />
+
+                                                        </div>
+                                                        <div className="main_h">{item.name.slice(0, 80)}...
                                                         </div>
                                                     </div>
                                                     <div className="main_text">
                                                         <div className="main_p">
-                                                            {item.description}
+                                                            {item.description.slice(0, 100)}...
                                                         </div>
                                                         <div className="main_sale">
                                                             {item.price} sum

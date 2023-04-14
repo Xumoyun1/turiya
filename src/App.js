@@ -8,7 +8,7 @@ import WishlistProvider from "./contexts/wishlist";
 import About from "./pages/About";
 import Basket from "./pages/Basket";
 import Card from "./pages/Card";
-import Checkout from "./pages/Checkout";
+// import Checkout from "./pages/Checkout";
 import Favorite from "./pages/Favorite";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -19,6 +19,7 @@ import Public from "./pages/Public";
 import Registration from "./pages/Registration";
 import Shop from "./pages/Shop";
 import Verify from "./pages/Verify";
+import Index from "./pages/payment/Payment";
 
 function App() {
   return (
@@ -42,7 +43,7 @@ function App() {
                 <Route element={<Profile />} path="/profile" />
                 <Route element={<Shop />} path="/shop" />
                 <Route path="/success" element={<Message />} />
-                <Route path="/checkout" element={<Checkout />} />
+                <Route path="/checkout" element={<Index />} />
               </Routes>
               <Footer />
             </HashRouter>
@@ -54,3 +55,4 @@ function App() {
 }
 
 export default App;
+// pk_test_51MlrVBJ7mapjSr4rb6XsMKY6dP1OjqSFj1aLQXuiDGal2bTUdv8C200RbhYIO1iYnABFG3KIG5b3G8MqJ13a9pVJ00QhPxATVf
