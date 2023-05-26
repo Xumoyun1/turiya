@@ -28,7 +28,7 @@ const Verify = () => {
                                         Проверка
                                     </div>
                                     <input value={code} onChange={e => setCode(e.target.value)} required placeholder='' type="text" name="" id="" className="registr_inp" />
-                                    <button type='submit' to='/profile' className="register_reg">Подтвердитe</button>
+                                    <button type='submit' to='/' className="register_reg">Подтвердитe</button>
                                 </div>
                             </form>
                         </div>

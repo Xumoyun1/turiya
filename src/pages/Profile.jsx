@@ -6,6 +6,7 @@ import Header from '../components/Header';
 import { API_PATH } from '../tools/constats';
 import axios from 'axios';
 import { useEffect } from 'react';
+import { getText } from '../locales'
 
 const Profile = () => {
     const [password, setPassword] = useState('')
@@ -75,15 +76,15 @@ const Profile = () => {
                         <div className="col-2 d-lg-flex d-none"></div>
                         <div className="col-8">
                             <div className="prof_name_text">
-                                <div className="prof_name_text_h">Профиль / </div>
-                                <div className="prof_name_text_p"> Покупки</div>
+                                <div className="prof_name_text_h">{getText("nav_3")} / </div>
+                                <div className="prof_name_text_p"> {getText("prof_name_text_p")}</div>
                             </div>
                         </div>
                         <div className="col-2 d-flex justify-content-end">
                             <Link to="/" className='prof_out_box'>
                                 <img src="/img/out.png" alt="" />
                                 <div className="prof_out_name">
-                                    Выйти
+                                    {getText("out")}
                                 </div>
                             </Link>
                         </div>
@@ -96,7 +97,7 @@ const Profile = () => {
                                         >
                                             <div className="prof_nav_box">
                                                 <img src="/img/prof_1.png" alt="" />
-                                                <div className="prof_nav_box_name">Покупки</div>
+                                                <div className="prof_nav_box_name">{getText("prof_name_text_p")}</div>
                                             </div>
                                         </NavLink>
                                     </NavItem>
@@ -114,7 +115,7 @@ const Profile = () => {
                                         >
                                             <div className="prof_nav_box">
                                                 <img src="/img/prof_3.png" alt="" />
-                                                <div className="prof_nav_box_name">Изменить пароль</div>
+                                                <div className="prof_nav_box_name">{getText("parol_change")}</div>
                                             </div>
                                         </NavLink>
                                     </NavItem>
@@ -135,27 +136,27 @@ const Profile = () => {
                                                 </div>
                                                 <div className="col-3">
                                                     <div className="tab_buy_name">
-                                                        Продукт
+                                                        {getText("tab_buy_name_1")}
                                                     </div>
                                                 </div>
                                                 <div className="col-2">
                                                     <div className="tab_buy_name">
-                                                        Количество
+                                                        {getText("tab_buy_name_2")}
                                                     </div>
                                                 </div>
                                                 <div className="col-2">
                                                     <div className="tab_buy_name">
-                                                        Дата
+                                                        {getText("tab_buy_name_3")}
                                                     </div>
                                                 </div>
                                                 <div className="col-2">
                                                     <div className="tab_buy_name">
-                                                        Статус
+                                                        {getText("tab_buy_name_4")}
                                                     </div>
                                                 </div>
                                                 <div className="col-2">
                                                     <div className="tab_buy_name">
-                                                        Сумма
+                                                        {getText("tab_buy_name_5")}
                                                     </div>
                                                 </div>
                                             </div>
@@ -203,7 +204,7 @@ const Profile = () => {
                                                         </div>
                                                         <div className="col-2">
                                                             <div className="tab_text_name">
-                                                                {item.get_total} сум
+                                                                {item.get_total} {getText("sum")}
                                                             </div>
                                                         </div>
                                                     </div>
@@ -211,56 +212,52 @@ const Profile = () => {
                                             })}
                                         </div>
                                     </div>
-                                    <div className="tab_buy_2">
-                                        <div className="tab_buy_2_top">
-                                            <div className="tab_buy_name">
-                                                Продукт
+
+                                    {order && order.map((item, index) => {
+                                        return (
+                                            <div key={index} className="tab_buy_2">
+                                                <div className="tab_buy_2_top">
+                                                    <div className="tab_buy_name">
+                                                        {getText("tab_buy_name_1")}
+                                                    </div>
+                                                    <div className="tab_buy_num">
+                                                        #{item.id}
+                                                    </div>
+                                                </div>
+                                                <div className="tab_text_name">
+                                                    {item.card_items && item.card_items.map((item2, index2) => {
+                                                        return (
+                                                            <div key={index2} className="div">
+                                                                {item2.product_name}
+                                                            </div>
+                                                        )
+                                                    })}
+                                                </div>
+                                                <div className="tab_buy_name">{getText("tab_buy_name_2")}</div>
+                                                <div className="tab_text_name"> {item.card_items && item.card_items.map((item2, index2) => {
+                                                    return (
+                                                        <div key={index2} className="div">
+                                                            {item2.quantity}
+                                                        </div>
+                                                    )
+                                                })}</div>
+                                                <div className="tab_buy_name">{getText("tab_buy_name_3")}</div>
+                                                <div className="tab_text_name">{item.created_at}</div>
+                                                <div className="tab_buy_name">{getText("tab_buy_name_4")}</div>
+                                                <div className="tab_text_name_2">
+                                                    {item.status}
+                                                </div>
+                                                <div className="tab_buy_name">{getText('sum')}</div>
+                                                <div className="tab_text_name"> {item.get_total} {getText("sum")}</div>
                                             </div>
-                                            <div className="tab_buy_num">
-                                                #1
-                                            </div>
-                                        </div>
-                                        <div className="tab_text_name">
-                                            Iphone 13 pro max 256gb
-                                        </div>
-                                        <div className="tab_buy_name">Количество</div>
-                                        <div className="tab_text_name">1-количество</div>
-                                        <div className="tab_buy_name">Дата</div>
-                                        <div className="tab_text_name">01.11.2022</div>
-                                        <div className="tab_buy_name">Статус</div>
-                                        <div className="tab_text_name_2">
-                                            Неоплачено
-                                        </div>
-                                        <div className="tab_buy_name">Сумма</div>
-                                        <div className="tab_text_name">11 248 100 сум</div>
-                                    </div>
-                                    <div className="tab_buy_2">
-                                        <div className="tab_buy_2_top">
-                                            <div className="tab_buy_name">
-                                                Продукт
-                                            </div>
-                                            <div className="tab_buy_num">
-                                                #1
-                                            </div>
-                                        </div>
-                                        <div className="tab_text_name">
-                                            Iphone 13 pro max 256gb
-                                        </div>
-                                        <div className="tab_buy_name">Количество</div>
-                                        <div className="tab_text_name">1-количество</div>
-                                        <div className="tab_buy_name">Дата</div>
-                                        <div className="tab_text_name">01.11.2022</div>
-                                        <div className="tab_buy_name">Статус</div>
-                                        <div className="tab_text_name_2">
-                                            Неоплачено
-                                        </div>
-                                        <div className="tab_buy_name">Сумма</div>
-                                        <div className="tab_text_name">11 248 100 сум</div>
-                                    </div>
+                                        )
+                                    })}
+
+
 
                                     <Link to='/' className="tab_out">
                                         <img src="/img/out_2.png" alt="" />
-                                        Выйти
+                                        {getText("out")}
                                     </Link>
 
                                 </TabPane>
@@ -298,25 +295,25 @@ const Profile = () => {
                                             <form onSubmit={changePassword} className='d-flex flex-column align-items-end w-100' action="">
                                                 <div className="tab_parol">
                                                     <div className="tab_parol_box">
-                                                        <div className="tab_parol_h">Stariy Пароль *</div>
-                                                        <input value={old_password} onChange={e => setOldPassword(e.target.value)} required placeholder='******' type="text" name="" id="" className="tab_parol_inp" />
+                                                        <div className="tab_parol_h">{getText("tab_parol_h_1")} *</div>
+                                                        <input value={old_password} onChange={e => setOldPassword(e.target.value)} required placeholder='******' type="password" name="" id="" className="tab_parol_inp" />
                                                     </div>
                                                     <div className="tab_parol_box">
-                                                        <div className="tab_parol_h">Новый пароль *</div>
-                                                        <input value={password} onChange={e => setPassword(e.target.value)} required placeholder='******' type="text" name="" id="" className="tab_parol_inp" />
+                                                        <div className="tab_parol_h">{getText("tab_parol_h_2")} *</div>
+                                                        <input value={password} onChange={e => setPassword(e.target.value)} required placeholder='******' type="password" name="" id="" className="tab_parol_inp" />
                                                     </div>
                                                     <div className="tab_parol_box">
-                                                        <div className="tab_parol_h">Повторить пароль *</div>
-                                                        <input value={password2} onChange={e => setPassword2(e.target.value)} required placeholder='******' type="text" name="" id="" className="tab_parol_inp" />
+                                                        <div className="tab_parol_h">{getText("tab_parol_h_3")} *</div>
+                                                        <input value={password2} onChange={e => setPassword2(e.target.value)} required placeholder='******' type="password" name="" id="" className="tab_parol_inp" />
                                                     </div>
                                                 </div>
-                                                <button type='submit' className="tab_parol_btn">Сохранить изменения</button>
+                                                <button type='submit' className="tab_parol_btn">{getText("tab_parol_btn")}</button>
                                             </form>
                                         </div>
                                         <div className="col-12">
                                             <Link to='/' className="tab_out">
                                                 <img src="/img/out_2.png" alt="" />
-                                                Выйти
+                                                {getText("out")}
                                             </Link>
                                         </div>
                                     </div>

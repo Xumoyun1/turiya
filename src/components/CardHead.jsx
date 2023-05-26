@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { API_PATH } from '../tools/constats'
+import { getText } from '../locales'
 
 const CardHead = () => {
     const [id, setId] = useState(JSON.parse(localStorage.getItem('PRODUCT_ID') || 1))
@@ -27,7 +28,7 @@ const CardHead = () => {
                             <Link to="/" className="c_h_left">
                                 <img src="/img/c_h_left.png" alt="" className="c_h_l_img" />
                                 <img src="/img/c_h_left_2.png" alt="" className="c_h_l_img_2" />
-                                <div className="c_h_l_name">Главное</div>
+                                <div className="c_h_l_name">{getText("header_2")}</div>
                             </Link>
                             <img src="/img/c_h_right.png" alt="" className="c_h_img" />
                             <img src="/img/c_h_right_2.png" alt="" className="c_h_img_2" />

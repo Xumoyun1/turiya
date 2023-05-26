@@ -9,12 +9,11 @@ import { useEffect } from "react";
 import axios from "axios";
 import { Rating } from 'react-simple-star-rating'
 import { addToWishlist, WishlistDispatchContext } from '../contexts/wishlist'
-
+import { getText } from '../locales'
 
 
 import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
-import { getText } from "../locales";
 
 const Deal = () => {
     const [like, setLike] = useState()
@@ -86,7 +85,7 @@ const Deal = () => {
                 <div className="container">
                     <div className="row">
                         <div className="col-12">
-                            <div className="deal_name">Акция недели</div>
+                            <div className="deal_name">{getText("deal_name")}</div>
                         </div>
 
                         {deal && deal.map((item, index) => {
@@ -136,10 +135,10 @@ const Deal = () => {
                                                         {item.description.slice(0, 100)}...
                                                     </div>
                                                     <div className="main_sale_2">
-                                                        {item.price} сум
+                                                        {item.price} {getText("sum")}
                                                     </div>
                                                     <div className="main_sale">
-                                                        {item.new_price} сум
+                                                        {item.new_price} {getText("sum")}
                                                     </div>
 
 

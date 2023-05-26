@@ -107,11 +107,11 @@ const Header = () => {
                                 </div>
                                 <div className="head_name">{getText('header_1')}</div>
 
-                                <img src="/img/logo_2.png" alt="" className="head_box_logo" />
+                                <Link to="/"><img src="/img/logo_2.png" alt="" className="head_box_logo" /></Link>
 
                                 <div className="head_box_box">
-                                    <img src="/img/icon_love.png" alt="" className="head_box_love" />
-                                    <img src="/img/icon_box.png" alt="" className="head_box_buy" />
+                                    <Link to="/favourite"><img src="/img/icon_love.png" alt="" className="head_box_love" /></Link>
+                                    <Link to="/basket"><img src="/img/icon_box.png" alt="" className="head_box_buy" /></Link>
                                 </div>
 
                             </div>

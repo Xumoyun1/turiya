@@ -1,5 +1,7 @@
 import React from 'react'
 import Header from '../components/Header'
+import { getText } from '../locales'
+import { Link } from 'react-router-dom'
 
 const About = () => {
     return (
@@ -10,15 +12,15 @@ const About = () => {
                     <div className="row justify-content-between">
                         <div className="col-12">
                             <div className="ab_link">
-                                <a href="" className="ab_a">Главное /</a>
+                                <Link to="/" className="ab_a">{getText("header_2")} /</Link>
                                 <div className="ab_a_h">
-                                    О нас
+                                    {getText("header_4")}
                                 </div>
                             </div>
                         </div>
                         <div className="col-lg-5">
                             <div className="ab_name">
-                                О Нас
+                                {getText("header_4")}
                             </div>
                             <div className="ab_p">
                                 Turiya.uz -высокое качество обслуживания, обеспечение более быстрого и удобного процесса покупки.

@@ -9,9 +9,10 @@ import { getText } from '../locales'
 import { addToWishlist, WishlistDispatchContext } from '../contexts/wishlist'
 
 
+
 const Shop = () => {
     const dispatch = useContext(WishlistDispatchContext);
-    const [cat, setCat] = useState(JSON.parse(localStorage.getItem('CAT_ID') || ''))
+    // const [cat, setCat] = useState(JSON.parse(localStorage.getItem('CAT_ID') || ''))
     const [like, setLike] = useState()
     const [products, setProducts] = useState([])
     const [brand, setBrand] = useState([])
@@ -69,7 +70,7 @@ const Shop = () => {
     }
 
     const getProducts = () => {
-        axios.get(API_PATH + `product/?cat=${cat}`)
+        axios.get(API_PATH + `product/?cat=${''}`)
             .then((res => {
                 setProducts(res.data)
             }))
@@ -114,7 +115,7 @@ const Shop = () => {
                                                 <div className="shop_name">{item.name}</div>
                                                 <div className="shop_h">{item.title}</div>
                                             </div>
-                                            <button className='shop_btn'><a href='/' className="shop_a">Получение льготного товара</a></button>
+                                            <button className='shop_btn'><a href='/' className="shop_a">{getText("head_2_a")}</a></button>
                                         </div>
                                     </div>
                                 )
@@ -128,7 +129,7 @@ const Shop = () => {
                                             <div className="col-12 ">
                                                 <div className="shop_filtr">
                                                     <div className="shop_filtr_name">
-                                                        По бренду
+                                                        {getText("shop_filtr_name")}
                                                     </div>
                                                     {/* <input placeholder='Поиск' className='shop_filtr_inp' type="text" name="" id="" /> */}
                                                     {brand && brand.map((item, index) => {
@@ -144,13 +145,13 @@ const Shop = () => {
                                                             </div>
                                                         )
                                                     })}
-                                                    <div onClick={() => setFilterBrand('')} className="shop_filtr_clean">Очистить фильтр</div>
+                                                    <div onClick={() => setFilterBrand('')} className="shop_filtr_clean">{getText("shop_filtr_clean")}</div>
                                                 </div>
                                             </div>
                                             <div className="col-12 mt-5">
                                                 <div className="shop_filtr">
                                                     <div className="shop_filtr_name">
-                                                        По Color
+                                                        {getText("shop_filtr_name_2")}
                                                     </div>
                                                     {/* <input placeholder='Поиск' className='shop_filtr_inp' type="text" name="" id="" /> */}
                                                     {color && color.map((item, index) => {
@@ -165,7 +166,7 @@ const Shop = () => {
                                                             </div>
                                                         )
                                                     })}
-                                                    <div onClick={() => setFilterColors('')} className="shop_filtr_clean">Очистить фильтр</div>
+                                                    <div onClick={() => setFilterColors('')} className="shop_filtr_clean">{getText("shop_filtr_clean")}</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -196,7 +197,7 @@ const Shop = () => {
                                                                             {item.description.slice(0, 100)}...
                                                                         </div>
                                                                         <div className="main_sale">
-                                                                            {item.price} сум
+                                                                            {item.price} {getText("sum")}
                                                                         </div>
 
                                                                         <div className="main_price">

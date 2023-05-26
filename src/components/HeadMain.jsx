@@ -7,6 +7,7 @@ import { Rating } from 'react-simple-star-rating'
 import { getText } from '../locales'
 
 
+
 const HeadMain = () => {
     const dispatch = useContext(WishlistDispatchContext);
     const [like, setLike] = useState()
@@ -17,6 +18,7 @@ const HeadMain = () => {
     const saveBtns = useRef([]);
     const currect = useRef([])
     const text = useRef([])
+
 
     // Catch Rating value
     const handleRating = (rate) => {
@@ -91,7 +93,7 @@ const HeadMain = () => {
                                                 <div className="head_2_name">{item.name}</div>
                                                 <div className="head_2_h">{item.title}</div>
                                             </div>
-                                            <button className='head_2_btn'><a href='/' className="head_2_a">Получение льготного товара</a></button>
+                                            <button className='head_2_btn'><Link to="/shop" className="head_2_a">{getText('head_2_a')}</Link></button>
                                         </div>
                                     </div>
                                 )
@@ -122,7 +124,7 @@ const HeadMain = () => {
                                                         </div>
 
                                                         <div className="main_sale">
-                                                            {item.price} sum
+                                                            {item.price} {getText('sum')}
                                                         </div>
 
                                                         <div className="main_price">
@@ -151,7 +153,7 @@ const HeadMain = () => {
 
                         <div className="col-12 d-flex justify-content-center">
                             <Link to="/shop" className="main_a">
-                                Показать еще
+                                {getText('main_a')}
                             </Link>
                         </div>
 

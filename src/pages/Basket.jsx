@@ -4,6 +4,7 @@ import Header from '../components/Header'
 import { addToCart, CartDispatchContext, CartStateContext, minusToCart, removeFromCart } from '../contexts/cart';
 import { API_PATH } from "../tools/constats";
 import axios from "axios";
+import { getText } from '../locales';
 
 const Basket = () => {
     const { items, isCartOpen } = useContext(CartStateContext);
@@ -65,9 +66,9 @@ const Basket = () => {
                     <div className="row">
                         <div className="col-12">
                             <div className="bas_h">
-                                Главное / <span>Корзина</span>
+                                {getText("header_2")} / <span>{getText("nav_2")}</span>
                             </div>
-                            <div className="bas_name">Корзина</div>
+                            <div className="bas_name">{getText("nav_2")}</div>
                         </div>
                     </div>
                     <div className="row">
@@ -86,7 +87,7 @@ const Basket = () => {
                                                 {product.name}
                                             </div>
                                             <div className="bas_sale">
-                                                {product.quantity * product.price} sum
+                                                {product.quantity * product.price} {getText("sum")}
                                             </div>
                                         </div>
                                         <div className="bas_line"></div>
@@ -106,12 +107,12 @@ const Basket = () => {
                                     return (
                                         <div className="bas_2_top">
                                             <div className="bas_2_text">
-                                                <div className="bas_2_h">Итого {product.quantity} шт</div>
-                                                <div className="bas_2_p">{total_amount} сум</div>
+                                                <div className="bas_2_h">{getText("bas_2_h_1")} {product.quantity} {getText("count")}</div>
+                                                <div className="bas_2_p">{total_amount} {getText("sum")}</div>
                                             </div>
                                             <div className="bas_2_text">
-                                                <div className="bas_2_h">Перевозки</div>
-                                                <div className="bas_2_p">{product.price_delivery ? `${product.price_delivery}` : '0'} сум</div>
+                                                <div className="bas_2_h">{getText("bas_2_h_2")}</div>
+                                                <div className="bas_2_p">{product.price_delivery ? `${product.price_delivery}` : '0'} {getText("sum")}</div>
                                             </div>
                                             {/* <div className="bas_2_text">
                                                 <div className="bas_2_h">Скидка</div>
@@ -122,13 +123,13 @@ const Basket = () => {
                                                 <div className="bas_2_p">300 000 сум</div>
                                             </div> */}
                                             <div className="bas_2_sale">
-                                                <div className="bas_2_h_2">Общая сумма</div>
-                                                <div className="bas_2_p_2">{`${total_amount + product.price_delivery}`} сум</div>
+                                                <div className="bas_2_h_2">{getText("bas_2_h_3")}</div>
+                                                <div className="bas_2_p_2">{`${total_amount + product.price_delivery}`} {getText("sum")}</div>
                                             </div>
                                         </div>
                                     )
                                 })}
-                                <button onClick={order} className="bas_2_a">Перейти к покупке</button>
+                                <button onClick={order} className="bas_2_a">{getText("bas_2_h_4")}</button>
                             </div>
                         </div>
 
@@ -150,16 +151,16 @@ const Basket = () => {
                                             <div onClick={() => minusToCart(dispatch, product)} className="cal_minus_2">-</div>
                                         </div>
                                         <div className="bas_box_3_text">
-                                            <div className="bas_3_h"><span>Итого</span> ({product.quantity}) шт</div>
+                                            <div className="bas_3_h"><span>{getText("bas_2_h_1")}</span> ({product.quantity}) {getText("count")}</div>
                                             <div className="bas_3_p">{total_amount}</div>
                                         </div>
                                         <div className="bas_box_3_text_2">
                                             {/* <div className="bas_3_h_2">Общая сумма</div> */}
-                                            <div className="bas_3_p_2">{product.quantity * product.price} сум</div>
+                                            <div className="bas_3_p_2">{product.quantity * product.price} {getText("sum")}</div>
                                         </div>
                                         <div onClick={() => handleRemove(product.id)} className="bas_box_3_false">
                                             <img src="/img/false_2.png" alt="" />
-                                            Удалить
+                                            {getText("clear")}
                                         </div>
                                     </div>
                                 </div>
@@ -174,12 +175,12 @@ const Basket = () => {
                                     <div className="bas_box_2">
                                         <div className="bas_2_top">
                                             <div className="bas_2_text">
-                                                <div className="bas_2_h">Итого ({product.quantity}) шт</div>
+                                                <div className="bas_2_h">{getText("bas_2_h_1")} ({product.quantity}) {getText("count")}</div>
                                                 <div className="bas_2_p">{total_amount}</div>
                                             </div>
                                             <div className="bas_2_text">
-                                                <div className="bas_2_h">Перевозки</div>
-                                                <div className="bas_2_p">{product.price_delivery ? `${product.price_delivery}` : '0'} сум</div>
+                                                <div className="bas_2_h">{getText("bas_2_h_2")}</div>
+                                                <div className="bas_2_p">{product.price_delivery ? `${product.price_delivery}` : '0'} {getText("sum")}</div>
                                             </div>
                                             {/* <div className="bas_2_text">
                     <div className="bas_2_h">Скидка</div>
@@ -190,11 +191,11 @@ const Basket = () => {
                     <div className="bas_2_p">300 000 сум</div>
                 </div> */}
                                             <div className="bas_2_sale">
-                                                <div className="bas_2_h_2">Общая сумма</div>
-                                                <div className="bas_2_p_2">{`${total_amount + product.price_delivery}`} сум</div>
+                                                <div className="bas_2_h_2">{getText("bas_2_h_3")}</div>
+                                                <div className="bas_2_p_2">{`${total_amount + product.price_delivery}`} {getText("sum")}</div>
                                             </div>
                                         </div>
-                                        <div className="bas_2_a">Перейти к покупке</div>
+                                        <div className="bas_2_a">{getText("bas_2_h_4")}</div>
                                     </div>
                                 </div>
                             )

@@ -1,5 +1,6 @@
 import React from 'react'
 import Header from '../components/Header'
+import { getText } from '../locales'
 
 const Public = () => {
     return (
@@ -12,7 +13,7 @@ const Public = () => {
                     <div className="row">
                         <div className="col-12">
                             <div className="pub_link">
-                                <a href="" className="pub_a">Главное /</a>
+                                <a href="" className="pub_a">{getText("header_6")} /</a>
                                 <div className="pub_a_h">
                                     Публичная оферта
                                 </div>

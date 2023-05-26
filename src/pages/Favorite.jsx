@@ -2,23 +2,24 @@ import React, { useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import Header from '../components/Header'
 import { removeFromWishlist, WishlistDispatchContext, WishlistStateContext } from '../contexts/wishlist';
+import { getText } from '../locales'
 
 const Favorite = () => {
     const { items, isWishlistOpen } = useContext(WishlistStateContext);
-    const dispatch = useContext(WishlistDispatchContext); 
-    
+    const dispatch = useContext(WishlistDispatchContext);
+
     console.log(items);
 
     const handleRemove = (productId) => {
         return removeFromWishlist(dispatch, productId);
-    }; 
+    };
 
     const navigate = useNavigate()
-    
+
     const detail = (id) => {
         localStorage.setItem("PRODUCT_ID", JSON.stringify(id))
         navigate('/card')
-    } 
+    }
 
     return (
         <>
@@ -29,20 +30,20 @@ const Favorite = () => {
                         <div className="col-12">
                             <div className="fav_text">
                                 <Link to="/" className="fav_h">
-                                    Главное /
+                                    {getText("header_2")} /
                                 </Link>
-                                Избранные товары
+                                {getText("fav_h")}
                             </div>
 
-                            <div className="fav_name">Избранные товары - маркетплейс Turiya Shop</div>
+                            <div className="fav_name">{getText("fav_h_2")}</div>
                         </div>
                     </div>
 
                     <div className="row d-md-flex d-none">
                         <div className="col-1"></div>
-                        <div className="col-3"><div className="fav_cat">Изображения</div></div>
-                        <div className="col-4"><div className="fav_cat">Продукт</div></div>
-                        <div className="col-3"><div className="fav_cat">Полная стоимость</div></div>
+                        <div className="col-3"><div className="fav_cat">{getText("fav_cat_1")}</div></div>
+                        <div className="col-4"><div className="fav_cat">{getText("fav_cat_2")}</div></div>
+                        <div className="col-3"><div className="fav_cat">{getText("fav_cat_3")}</div></div>
                     </div>
                     {items.map((product) => {
                         return (
@@ -65,7 +66,7 @@ const Favorite = () => {
                                 </div>
                                 <div className="col-md-3 d-flex align-items-center">
                                     <div className="fav_sale">
-                                        {product.price} sum
+                                        {product.price} {getText("sum")}
                                     </div>
                                 </div>
                                 <div onClick={() => detail(product.id)} className="col-md-1 d-flex align-items-center  justify-content-center">

@@ -67,7 +67,7 @@ function Interesting() {
                     <div className="row">
                         <div className="col-12">
                             <div className="inter_name">
-                                Самое интересное
+                                {getText("inter_name")}
                             </div>
                         </div>
                         <div className="col-12">

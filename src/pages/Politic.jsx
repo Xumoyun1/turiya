@@ -1,5 +1,7 @@
 import React from 'react'
 import Header from '../components/Header'
+import { getText } from '../locales'
+import { Link } from 'react-router-dom'
 
 const Politic = () => {
     return (
@@ -11,7 +13,7 @@ const Politic = () => {
                     <div className="row">
                         <div className="col-12">
                             <div className="pol_link">
-                                <a href="" className="pol_a">Главное /</a>
+                                <Link to="/" className="pol_a">{getText("header_5")} /</Link>
                                 <div className="pol_a_h">
                                     Политика конфиденциальности
                                 </div>

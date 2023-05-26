@@ -130,33 +130,33 @@ const CardMain = () => {
                   {data.name}
                 </div>
                 <div className="c_main_sale">
-                  <div className="c_main_sale_false"> {data.new_price ? `UZS ${data.price}` : ''}</div>
-                  <div className="c_main_sale_true">UZS {data.new_price ? data.new_price : data.price}</div>
+                  <div className="c_main_sale_false"> {data.new_price ? ` ${data.price} ${getText("sum")}` : ''}</div>
+                  <div className="c_main_sale_true"> {data.new_price ? data.new_price : data.price} {getText("sum")}</div>
                 </div>
                 <div className="c_main_info_box">
                   <div className="c_main_info">
                     <div className="c_main_info_img"><img className="c_main_info_icon" src="/img/c_main_1.png" alt="" /></div>
-                    <div className="c_main_info_name">Доставка:</div>
+                    <div className="c_main_info_name">{getText("c_main_info_icon_1")}</div>
                     <div className="c_main_info_p">{data.price_delivery ? `${data.price_delivery} UZS` : `Есть, бесплатно`}</div>
                   </div>
                   <div className="c_main_info">
                     <div className="c_main_info_img"><img className="c_main_info_icon" src="/img/c_main_2.png" alt="" /></div>
-                    <div className="c_main_info_name">Самовывоз:</div>
+                    <div className="c_main_info_name">{getText("c_main_info_icon_2")}</div>
                     <div className="c_main_info_p">{data.phone ? 'Есть' : 'Нет'}</div>
                   </div>
                   <div className="c_main_info">
                     <div className="c_main_info_img"><img className="c_main_info_icon" src="/img/c_main_3.png" alt="" /></div>
-                    <div className="c_main_info_name">Способ покупки:</div>
+                    <div className="c_main_info_name">{getText("c_main_info_icon_3")}</div>
                     <div className="c_main_info_p">{data.type_cash}</div>
                   </div>
                   <div className="c_main_info">
                     <div className="c_main_info_img"><img className="c_main_info_icon" src="/img/c_main_4.png" alt="" /></div>
-                    <div className="c_main_info_name">Возврат товара:</div>
-                    <div className="c_main_info_p">{data.return_day} дней</div>
+                    <div className="c_main_info_name">{getText("c_main_info_icon_4")}</div>
+                    <div className="c_main_info_p">{data.return_day} {getText("days")}</div>
                   </div>
                   <a href="/" className="c_main_info_a">
                     <div className="c_main_info_a_img"><img className="c_main_info_a_icon" src="/img/c_main_5.png" alt="" /></div>
-                    <div className="c_main_info_a_name">Ознакомиться c правилами возврата</div>
+                    <div className="c_main_info_a_name">{getText("c_main_info_a_name")}</div>
                   </a>
                   {/* <div className="c_main_count_name">Выберите количество</div>
                   <div className="c_main_count">
@@ -167,7 +167,7 @@ const CardMain = () => {
                 </div>
               </div>
               <div className="c_main_down">
-                <div onClick={handleAddToCart} className="c_main_btn">Добавить в корзину</div>
+                <div onClick={handleAddToCart} className="c_main_btn">{getText("add_basket")}</div>
                 {/* <img src="/img/c_main_love.png" alt="" className="c_main_like" /> */}
                 <img src="/img/c_main_love_2.png" alt="" className="c_main_like_2" />
               </div>
@@ -180,16 +180,16 @@ const CardMain = () => {
           <div className="row">
             <div className="col-12">
               <div className="c_desc_name">
-                Описание
+                {getText("c_desc_name")}
               </div>
             </div>
             <div className="col-12">
               <div className="c_desc_text">
-                <div className="c_desc_h">Бренд:</div>
+                <div className="c_desc_h">{getText("c_desc_1")}</div>
                 <div className="c_desc_p">{data.brand}</div>
               </div>
               <div className="c_desc_text">
-                <div className="c_desc_h">Цвет:</div>
+                <div className="c_desc_h">{getText("c_desc_2")}</div>
                 {data.colors && data.colors.map((item, index) => {
                   return (
                     <div key={index} className="c_desc_p">{item}</div>
@@ -197,11 +197,11 @@ const CardMain = () => {
                 })}
               </div>
               <div className="c_desc_text">
-                <div className="c_desc_h">Страна производителя:</div>
+                <div className="c_desc_h">{getText("c_desc_3")}</div>
                 <div className="c_desc_p">{data.made_in}</div>
               </div>
               <div className="c_desc_text">
-                <div className="c_desc_h">Состав:</div>
+                <div className="c_desc_h">{getText("c_desc_4")}</div>
                 <div className="c_desc_p">{data.characteristic}</div>
               </div>
             </div>
